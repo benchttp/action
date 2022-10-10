@@ -26,7 +26,7 @@ runs:
         go-version: 1.17
 
     - name: Install Benchttp CLI
-      run: go install github.com/benchttp/cli@${{ inputs.version }}
+      run: go install github.com/benchttp/cli/cmd/benchttp@${{ inputs.version }}
       shell: sh
 
     - name: Move to target directory

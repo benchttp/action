@@ -6,10 +6,6 @@ inputs:
     description: CLI options following "benchttp run"
     required: true
     default: ""
-  working-directory:
-    description: Directory from which Benchttp is run
-    required: false
-    default: "."
   version:
     description: Version of Benchttp CLI to use
     required: false
@@ -27,10 +23,6 @@ runs:
 
     - name: Install Benchttp CLI
       run: go install github.com/benchttp/cli/cmd/benchttp@${{ inputs.version }}
-      shell: sh
-
-    - name: Move to target directory
-      run: cd "${{ inputs.working-directory }}"
       shell: sh
 
     - name: Run Benchttp

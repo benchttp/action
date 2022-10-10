@@ -1,0 +1,38 @@
+name: Benchttp CI
+description: Run Benchttp
+
+inputs:
+  options:
+    description: CLI options following "benchttp run"
+    required: true
+    default: ""
+  working-directory:
+    description: Directory from which Benchttp is run
+    required: false
+    default: "."
+  version:
+    description: Version of Benchttp CLI to use
+    required: false
+    default: latest
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.17
+
+    - name: Install Benchttp CLI
+      run: go install github.com/benchttp/cli@${{ inputs.version }}
+      shell: sh
+
+    - name: Move to target directory
+      run: cd "${{ inputs.working-directory }}"
+      shell: sh
+
+    - name: Run Benchttp
+      run: benchttp run ${{ inputs.options }}
+      shell: sh
